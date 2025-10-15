@@ -1,12 +1,15 @@
 """
     ### Le jeu ce deroule dans la console ###
 """
+import time
+
 print("Bonjour")
 p = input("Votre Pseudo?  ")
 print(f"Bienvenue dans le jeu {p}")
+
 # on crée un tableau vide 'grille' qui represente la grille du jeu
 def creer_grille():
-    grille = []
+    grille = [] 
     for i in range(10):           # cette boucle s'execute 10* pour créer 10 lignes
         ligne = []                # A chaque tour une ligne vide est créer  
         for j in range(10):       # cette boucle s'execute 10* pour ajouter un . dans la ligne, il represente une case vide 
@@ -126,6 +129,11 @@ placer_les_bateaux(grille_joueur2) """
 
 
 def attaquer(grille, ligne, colonne):
+    """ 
+    La fonction retourne True si le tir a été effectué (Touché ou Manqué)
+    et False si le tir est sur une case déjà jouée.
+
+    """
     if grille[ligne][colonne] == "#":
         grille[ligne][colonne] = "X"    # les coordonnées données sont représentées par X
         print("Touché !")
@@ -133,10 +141,10 @@ def attaquer(grille, ligne, colonne):
         grille[ligne][colonne] = "O"
         print("Manqué !")
     else:
-        print("Cette case a déjà été jouée.")
+        print("Cette case a déjà été touchée.")
 
-colonne = input("Entre une colonne (A-J) : ").upper()
-ligne = int(input("Entre un numéro de ligne (1-10) : "))
+""" colonne = input("Entre une colonne (A-J) : ").upper()
+ligne = int(input("Entre un numéro de ligne (1-10) : ")) """
 
 #  Initialisation du jeu
 
@@ -151,9 +159,71 @@ print("\n--- Joueur 1 : Placez vos bateaux ---")
 placer_les_bateaux(grille_joueur1)
 
 print("\n--- Joueur 2 : Placez vos bateaux ---")
-""" # Pause pour que le J1 ne puisse pas voir la grille du J2 sur le même écran
 time.sleep(2)
-print("Veuillez demander au Joueur 1 de ne pas regarder l'écran...")
+print("Passage au Joueur 2...")
 time.sleep(3)
 placer_les_bateaux(grille_joueur2)
-print("\nPlacement terminé pour les deux joueurs.") """
+print("\nPlacement terminé pour les deux joueurs. La partie commence !")
+
+
+def jouer():
+    joueur_tour = 1
+    
+    while True:
+        # 1. Détermine le joueur actif et les grilles cibles/tirs
+        if joueur_tour == 1:
+            joueur_actif = 1
+            grille_cible = grille_joueur2        
+            grille_tirs_joueur_actif = grille_tirs_joueur1
+        else:
+            joueur_actif = 2
+            grille_cible = grille_joueur1        
+            grille_tirs_joueur_actif = grille_tirs_joueur2
+
+        print(f"\n TOUR DU JOUEUR {joueur_actif}")
+        
+        # Affiche la grille des tirs (la grille de l'adversaire vue par le joueur)
+        print("\nVoici votre grille de tirs (Adversaire) :")
+        afficher_grille(grille_tirs_joueur_actif, cacher_bateaux=False) 
+
+        tir_valide = False
+        while not tir_valide:
+            saisie_fait = False
+            while not saisie_fait:
+                colonne = input(f"J{joueur_actif}, entre une colonne de tir (A-J) : ").upper()
+                ligne_str = input(f"J{joueur_actif}, entre un numéro de ligne de tir (1-10) : ")
+                
+                # Validation de la LIGNE (Doit être un nombre)
+                if ligne_str.isdigit():
+                    ligne = int(ligne_str) # Conversion en nombre
+                    
+                    # Validation des LIMITES (Colonne et Ligne)
+                    if 'A' <= colonne <= 'J' and 1 <= ligne <= 10:
+                        saisie_fait = True
+                    else:
+                        print("Erreur : Coordonnées hors limites (A-J, 1-10).")
+                else:
+                    print("Erreur : La ligne doit être un nombre.")
+
+            # Conversion des indices (s'exécute uniquement si saisie_ok est True)
+            colonne_index = ord(colonne) - ord("A")
+            ligne_index = ligne - 1
+            
+            # Vérification du double tir (Story 7)
+            if grille_tirs_joueur_actif[ligne_index][colonne_index] != '.':
+                print("Cette case a déjà été ciblée. Choisissez une autre case.")
+                continue 
+
+            # Tente d'attaquer la grille adverse (Story 6)
+            attaque_effectuee = attaquer(grille_cible, ligne_index, colonne_index)
+            
+            # Mettre à jour la grille de tirs du joueur
+            if attaque_effectuee:
+                # Transfère le résultat du tir ('X' ou 'O') sur la grille de tirs du joueur
+                grille_tirs_joueur_actif[ligne_index][colonne_index] = grille_cible[ligne_index][colonne_index]
+                tir_valide = True
+            
+            print("\nGrille de tirs après le coup :")
+            afficher_grille(grille_tirs_joueur_actif)
+
+        

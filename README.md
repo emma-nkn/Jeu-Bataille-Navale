@@ -13,6 +13,8 @@ Dans ce jeu deux joueurs s'affrontent sur une grille 10x10 en essayant de couler
 
 - Lancer le jeu
 
+- le jeu se déroule dans le terminal
+
 ### Les règle du jeu
 
 - Chaque joueur possède une grille de 10x10;
@@ -29,8 +31,10 @@ Dans ce jeu deux joueurs s'affrontent sur une grille 10x10 en essayant de couler
 
   Torpilleur (2 cases)
 
-Les joueurs tirent à tour de rôle sur une case en donnant les réferences de la case;
+Les joueurs tirent à tour de rôle sur une case en donnant les coordonnées de la case;
 
 Un bateau est coulé lorsque toutes ses cases ont été touchées;
 
 Dès que le premier joueur coule tous les bateaux son adverse gagne.
+
+### Merci
