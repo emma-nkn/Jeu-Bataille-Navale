@@ -1,3 +1,7 @@
+"""
+    ### Le jeu ce deroule dans la console ###
+"""
+
 # on crée un tableau vide 'grille' qui represente la grille du jeu
 
 grille = []
@@ -10,12 +14,26 @@ for i in range(10):           # cette boucle s'execute 10* pour créer 10 lignes
 print("  A B C D E F G H I J ") # ceci represente les coordonées de chaque case sur l'axe horizontal
 # Fonction pour afficher la grille
 def afficher_grille(grille):
+    """
+    Affiche la grille de jeu carrée 10x10 dans la console.
+
+    Chaque ligne de la grille est précédée de son numéro (de 1 à 10).
+    La fonction parcourt les 10 premières lignes de la grille et affiche
+    le contenu de chaque case, suivi d'un retour à la ligne.
+
+    Argument:
+        grille: La grille de jeu à afficher.
+            Elle est composée d'une liste de 10 listes,
+            chacune contenant un . qui represente une case vide
+
+    Returns:
+        La fonction ne retourne rien.
+    """
     for i in range(10):
         print(i + 1, end="  ")  
         for case in grille[i]:
             print(case, end=" ")
         print()
-    return
 
 #  Fonction pour placer un bateau 
 def placer_bateau(grille, ligne, colonne, taille, orientation): # la fonction prends en paramètre 5 arguments
