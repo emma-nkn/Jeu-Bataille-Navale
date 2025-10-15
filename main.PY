@@ -8,13 +8,14 @@ for i in range(10):           # cette boucle s'execute 10* pour créer 10 lignes
     grille.append(ligne)      #  ceci ajoute chaque ligne à la grille
 
 print("  A B C D E F G H I J ") # ceci represente les coordonées de chaque case sur l'axe horizontal
-# Pour afficher la grille
+# Fonction pour afficher la grille
 def afficher_grille(grille):
     for i in range(10):
         print(i + 1, end="  ")  
         for case in grille[i]:
             print(case, end=" ")
         print()
+    return
 
 #  Fonction pour placer un bateau 
 def placer_bateau(grille, ligne, colonne, taille, orientation): # la fonction prends en paramètre 5 arguments
