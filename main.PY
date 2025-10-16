@@ -7,6 +7,8 @@ print("Bonjour")
 p = input("Votre Pseudo?  ")
 print(f"Bienvenue dans le jeu {p}")
 
+# ---  FONCTIONS DE GRILLE ET AFFICHAGE ---
+
 # on crée un tableau vide 'grille' qui represente la grille du jeu
 def creer_grille():
     grille = [] 
@@ -35,6 +37,8 @@ def afficher_grille(grille):
         for case in grille[i]:
             print(case, end=" ")
         print()
+
+# --- FONCTIONS DE PLACEMENT DES BATEAUX ---
 
 def placer_bateau(grille, ligne, colonne, taille, orientation): # la fonction prends en paramètre 5 arguments
     if orientation == "H":
@@ -69,7 +73,7 @@ def placer_bateau(grille, ligne, colonne, taille, orientation): # la fonction pr
     return True
 
 
-#  Fonction pour placer un bateau 
+#  Fonction pour placer les 5 bateau 
 def placer_les_bateaux(grille):
     bateaux = {
         "Porte-avions": 5,
@@ -120,33 +124,35 @@ def placer_les_bateaux(grille):
                 placement_fait = placer_bateau(grille, ligne_index, colonne_index, taille, orientation)
                 afficher_grille(grille)
 
-""" # Exécution de la phase de placement des bateaux par joueurs
-print("\n--- Joueur 1 : Placez vos bateaux ---")
-placer_les_bateaux(grille_joueur1)
-
-print("\n--- Joueur 2 : Placez vos bateaux ---")
-placer_les_bateaux(grille_joueur2) """
-
-
+# --- FONCTIONS DE LA PARTIE DE JEU EN COURS ---
 def attaquer(grille, ligne, colonne):
     """ 
     La fonction retourne True si le tir a été effectué (Touché ou Manqué)
     et False si le tir est sur une case déjà jouée.
 
     """
+    # La fonction retourne True si le tir a été effectué (Touché ou Manqué)
+    
     if grille[ligne][colonne] == "#":
         grille[ligne][colonne] = "X"    # les coordonnées données sont représentées par X
         print("Touché !")
+        return True
     elif grille[ligne][colonne] == ".":
         grille[ligne][colonne] = "O"
         print("Manqué !")
+        return True
     else:
         print("Cette case a déjà été touchée.")
+        return False # Indique que le tir n'est pas valide et est déjà joué
 
-""" colonne = input("Entre une colonne (A-J) : ").upper()
-ligne = int(input("Entre un numéro de ligne (1-10) : ")) """
+def partie_finie(grille_cible):
+    """ Vérifie s'il ne reste plus de marqueurs '#' de bateaux."""
+    for ligne in grille_cible:
+        if "#" in ligne:
+            return False
+    return True
 
-#  Initialisation du jeu
+# --- INITIALISATION DU JEU ET BOUCLE PRINCIPALE ---
 
 # Initialisation des grilles
 grille_joueur1 = creer_grille()
@@ -159,9 +165,9 @@ print("\n--- Joueur 1 : Placez vos bateaux ---")
 placer_les_bateaux(grille_joueur1)
 
 print("\n--- Joueur 2 : Placez vos bateaux ---")
-time.sleep(2)
+time.sleep(1)
 print("Passage au Joueur 2...")
-time.sleep(3)
+time.sleep(1)
 placer_les_bateaux(grille_joueur2)
 print("\nPlacement terminé pour les deux joueurs. La partie commence !")
 
@@ -226,4 +232,16 @@ def jouer():
             print("\nGrille de tirs après le coup :")
             afficher_grille(grille_tirs_joueur_actif)
 
+# Vérification de la victoire
+        if partie_finie(grille_cible):
+            print(f"FÉLICITATIONS JOUEUR {joueur_actif} ! VOUS AVEZ COULÉ TOUS LES BATEAUX DE L'ADVERSAIRE ET GAGNÉ LA PARTIE !")
+            break
+
+        # Changement de joueur
+        joueur_tour = 2 if joueur_tour == 1 else 1
         
+        print(f"\nFin du tour. La main passe au Joueur  {joueur_tour}.")
+        time.sleep(1)
+        
+# Lancement de la partie (Ceci doit être la dernière ligne du code)
+jouer()
