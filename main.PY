@@ -210,11 +210,11 @@ def jouer():
                 colonne = input(f"J{joueur_actif}, entre une colonne de tir (A-J) : ").upper()
                 ligne_str = input(f"J{joueur_actif}, entre un numéro de ligne de tir (1-10) : ")
                 
-                # Validation de la LIGNE (Doit être un nombre)
+                # Validation de la ligne qui doit être un nombre
                 if ligne_str.isdigit():
                     ligne = int(ligne_str) # Conversion en nombre
                     
-                    # Validation des LIMITES (Colonne et Ligne)
+                    # Validation des limites par rapport à Colonne et Ligne
                     if 'A' <= colonne <= 'J' and 1 <= ligne <= 10:
                         saisie_fait = True
                     else:
@@ -254,5 +254,5 @@ def jouer():
         print(f"\nFin du tour. La main passe au Joueur  {joueur_tour}.")
         time.sleep(1)
         
-# Lancement de la partie (Ceci doit être la dernière ligne du code)
+# Lancement de la partie 
 jouer()
