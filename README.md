@@ -37,4 +37,10 @@ Un bateau est coulé lorsque toutes ses cases ont été touchées;
 
 Dès que le premier joueur coule tous les bateaux son adverse gagne.
 
+### Module utulisé
+
+J'ai utilisé qui est un module de Python qui fournit diverses fonctions liées à l'heure.
+Dans mon jeu time.sleep() permet de mettrre une pause pendant quelques secondes entre les tours des deux joueurs.
+Ceci sépare visuellement les tours dans la console, et améliore l'expérience de jeu.
+
 ### Merci
