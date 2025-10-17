@@ -19,8 +19,6 @@ def creer_grille():
         grille.append(ligne)      #  ceci ajoute chaque ligne à la grille
     return grille
 
-grille_joueur1 = creer_grille()
-grille_joueur2 = creer_grille()
 
 # Fonction pour afficher la grille
 def afficher_grille(grille):
@@ -190,7 +188,7 @@ def jouer():
         
         # Affiche la grille des tirs (la grille de l'adversaire vue par le joueur)
         print("\nVoici votre grille de tirs (Adversaire) :")
-        afficher_grille(grille_tirs_joueur_actif, cacher_bateaux=False) 
+        afficher_grille(grille_tirs_joueur_actif,) 
 
         tir_valide = False
         while not tir_valide:
