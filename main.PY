@@ -13,9 +13,9 @@ print(f"Bienvenue dans le jeu {p}")
 def creer_grille():
     grille = [] 
     for i in range(10):           # cette boucle s'execute 10* pour créer 10 lignes
-        ligne = []                # A chaque tour une ligne vide est créer  
-        for j in range(10):       # cette boucle s'execute 10* pour ajouter un . dans la ligne, il represente une case vide 
-            ligne.append(".")     
+        ligne = []                 
+        for j in range(10):       # A chaque tour une ligne vide est créer
+            ligne.append(".")     # cette boucle s'execute 10* pour ajouter un . dans la ligne, il represente une case vide 
         grille.append(ligne)      #  ceci ajoute chaque ligne à la grille
     return grille
 
@@ -144,7 +144,9 @@ def attaquer(grille, ligne, colonne):
         return False # Indique que le tir n'est pas valide et est déjà joué
 
 def partie_finie(grille_cible):
-    """ Vérifie s'il ne reste plus de marqueurs '#' de bateaux."""
+    """ Vérifie s'il ne reste plus de marqueurs '#' de bateaux.
+        reponse: true
+    """
     for ligne in grille_cible:
         if "#" in ligne:
             return False
@@ -171,6 +173,17 @@ print("\nPlacement terminé pour les deux joueurs. La partie commence !")
 
 
 def jouer():
+    """
+    Lance la boucle principale du jeu.
+
+    Gère l'alternance des tours entre les deux joueurs, la saisie des coordonnées de tir,
+    la validation de ces coordonnées, la vérification qu'une case n'a pas déjà été tirée,
+    l'appel à la fonction d'attaque sur la grille adverse, et la mise à jour
+    des grilles de suivi des tirs pour chaque joueur.
+
+    La fonction s'exécute dans une boucle infinie (`while True`) jusqu'à ce qu'une
+    condition de victoire plus loin dans le code mette fin au jeu.
+    """
     joueur_tour = 1
     
     while True:
